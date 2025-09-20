@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>南梁革命纪念馆 - 传承红色基因，弘扬南梁精神</title>
+    <style>
+        :root {
+            --primary-red: #c41e3a;
+            --deep-red: #8b0000;
+            --accent-gold: #d4af37;
+            --dark-brown: #3e2723;
+            --bg-light: #f8f9fa;
+            --bg-cream: #faf8f3;
+            --text-dark: #2c2c2c;
+            --text-gray: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            font-family: 'STSong', '方正书宋', 'SourceHanSerif', 'FangSong', '仿宋_GB2312', 'STFangsong', serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(196, 30, 58, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.95), rgba(139, 0, 0, 0.95));
+            backdrop-filter: blur(20px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: "";
+            background-image: url("https://i.ibb.co/DPbLCqW2/2025-09-01-11-00-20.png");
+            background-size: contain;
+            width: 5.2rem;
+            height: 5.2rem;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 0.5rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 4px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-item a:hover, .nav-item a.active {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(196, 30, 58, 0.7), rgba(139, 0, 0, 0.7)), 
+                        url('https://i.ibb.co/pFcFkp1/2025-09-01-09-48-00.png');
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://i.ibb.co/pFcFkp1/2025-09-01-09-48-00.png') no-repeat center center/cover;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: slideInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideInUp 1s ease-out 0.6s both;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            color: #c41e3a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .cta-button.secondary:hover {
+            background: white;
+            color: #c41e3a;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 6rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #c41e3a;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #c41e3a, #8b0000);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+
+        /* 搜索筛选栏 */
+        .search-filter-bar {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #c41e3a;
+            box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+        }
+
+        .filter-select {
+            padding: 0.8rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            background: white;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* 卡片网格 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            height: 200px;
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .card-content {
+            padding: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #c41e3a;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #c41e3a, #8b0000);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .card-button:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+        }
+
+        /* 特殊卡片样式 */
+        .vr-card .card-header {
+            background: url('https://i.ibb.co/XZ4rXCwb/7761756712041-pic-hd.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .knowledge-card .card-header {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .ai-card .card-header {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .artifacts-card .card-header {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+
+        .education-card .card-header {
+            background: linear-gradient(135deg, #fa709a, #fee140);
+        }
+
+        /* 文物展示优化 */
+        .artifacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .artifact-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .artifact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .artifact-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .artifact-card .info {
+            padding: 1.5rem;
+        }
+
+        .artifact-card .name {
+            font-weight: bold;
+            color: #c41e3a;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .artifact-card .level {
+            background: linear-gradient(45deg, #c41e3a, #8b0000);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        /* 关于我们部分 */
+        .about-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 4rem 2rem;
+            border-radius: 20px;
+            margin-top: 4rem;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #c41e3a;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: #bdc3c7;
+            line-height: 1.6;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideInUp 0.3s ease;
+            width: 90%;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #c41e3a;
+        }
+
+        /* 管理后台样式 */
+        .tab-btn {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn.active {
+            color: #c41e3a;
+            border-bottom-color: #c41e3a;
+            font-weight: bold;
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .upload-area {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 2px dashed #ddd;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .btn-upload {
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(45deg, #c41e3a, #8b0000);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .content-list {
+            max-height: 400px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 10px;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .item-title {
+            font-weight: bold;
+            color: #c41e3a;
+        }
+
+        .item-meta {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .btn-view, .btn-delete {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .btn-view {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #666;
+        }
+
+        /* 分页 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .page-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid #c41e3a;
+            background: white;
+            color: #c41e3a;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover,
+        .page-btn.active {
+            background: #c41e3a;
+            color: white;
+        }
+
+        /* AI聊天模态框样式 */
+        .ai-chat-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .ai-chat-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ai-chat-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ai-chat-header {
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .ai-message, .user-message {
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            line-height: 1.6;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: linear-gradient(135deg, #c41e3a, #8b0000);
+            color: white;
+            margin-left: auto;
+        }
+
+        .ai-message {
+            background: white;
+            color: #333;
+            border: 1px solid #c41e3a;
+        }
+
+        .ai-chat-input-area {
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .ai-chat-input-form {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .ai-chat-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid #c41e3a;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .ai-chat-send {
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #c41e3a, #8b0000);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                background: linear-gradient(135deg, #c41e3a, #8b0000);
+                padding: 2rem;
+                gap: 1rem;
+                transform: translateY(-100%);
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease;
+            }
+
+            .nav-menu.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">南梁革命纪念馆</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li class="nav-item"><a href="#home">首页</a></li>
+                <li class="nav-item"><a href="#digital">数字展馆</a></li>
+                <li class="nav-item"><a href="#knowledge">知识学习</a></li>
+                <li class="nav-item"><a href="#artifacts">馆藏文物</a></li>
+                <li class="nav-item"><a href="#education">思政教育</a></li>
+                <li class="nav-item"><a href="#about">关于我们</a></li>
+                <li class="nav-item"><a href="javascript:void(0)" onclick="openAdmin()">管理后台</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">南梁革命纪念馆</h1>
+            <p class="hero-subtitle">传承红色基因 · 弘扬南梁精神</p>
+            <p class="hero-description">
+                南梁，中国革命史上的重要地标，陕甘边革命根据地的中心。这里孕育了革命，为中国革命做出了历史性贡献，是老一辈无产阶级革命家留给我们的宝贵财富。
+            </p>
+            <div class="cta-buttons">
+                <button class="cta-button" onclick="openVRTour()">VR全景参观</button>
+                <button class="cta-button secondary" onclick="openAIChat()">AI智能导览</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <!-- 数字展馆 -->
+        <section id="digital" class="section animate-on-scroll">
+            <h2 class="section-title">数字展馆体验</h2>
+            <p class="section-subtitle">运用前沿科技，打造沉浸式参观体验</p>
+            <div class="card-grid">
+                <div class="card vr-card">
+                    <div class="card-header"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">VR全景导览</h3>
+                        <p class="card-description">
+                            采用720度全景VR技术，突破时空限制，让您身临其境体验南梁革命纪念馆的每个角落，感受革命历史的震撼力量。
+                        </p>
+                        <button class="card-button" onclick="openVRTour()">进入VR体验</button>
+                    </div>
+                </div>
+                <div class="card ai-card">
+                    <div class="card-header"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">AI智能导览</h3>
+                        <p class="card-description">
+                            基于大语言模型的智能导览系统，可回答关于南梁历史、革命人物、文物背景的各种问题，提供个性化学习体验。
+                        </p>
+                        <button class="card-button" onclick="openAIChat()">开始AI对话</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 知识学习 -->
+        <section id="knowledge" class="section animate-on-scroll">
+            <h2 class="section-title">知识图谱与互动学习</h2>
+            <p class="section-subtitle">构建系统化知识体系，实现深度学习体验</p>
+            <div class="card-grid">
+                <div class="card knowledge-card">
+                    <div class="card-header"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">南梁知识图谱</h3>
+                        <p class="card-description">
+                            以革命人物、重大事件、历史地点为节点，构建南梁革命历史知识网络，直观展现历史脉络和人物关系。
+                        </p>
+                        <button class="card-button" onclick="openKnowledgeGraph()">探索知识图谱</button>
+                    </div>
+                </div>
+                <div class="card ai-card">
+                    <div class="card-header"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">生成式AI互动学习</h3>
+                        <p class="card-description">
+                            专属的"南梁历史通"AI助手，能随时回答您关于南梁历史的任何提问，为您提供及时、准确的历史知识。
+                        </p>
+                        <button class="card-button" onclick="openAILearning()">开始AI学习</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 馆藏文物 -->
+        <section id="artifacts" class="section animate-on-scroll">
+            <h2 class="section-title">珍贵馆藏文物</h2>
+            <p class="section-subtitle">每一件文物都是历史的见证，述说着不朽的革命精神</p>
+            
+            <!-- 搜索筛选栏 -->
+            <div class="search-filter-bar">
+                <input type="text" class="search-input" id="searchInput" placeholder="🔍 搜索文物名称..." oninput="filterArtifacts()">
+                <select class="filter-select" id="levelFilter" onchange="filterArtifacts()">
+                    <option value="">所有等级</option>
+                    <option value="国家一级文物">国家一级文物</option>
+                    <option value="国家二级文物">国家二级文物</option>
+                    <option value="国家三级文物">国家三级文物</option>
+                    <option value="一般文物">一般文物</option>
+                </select>
+            </div>
+
+            <div id="artifactsDisplay">
+                <div class="empty-state">
+                    <h3>文物展示</h3>
+                    <p></p>
+                    <div class="stats-grid" style="margin-top: 2rem;">
+                        <div class="stat-item">
+                            <span class="stat-number">7</span>
+                            <span class="stat-label">国家一级文物</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">16</span>
+                            <span class="stat-label">国家二级文物</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">324</span>
+                            <span class="stat-label">国家三级文物</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">4889</span>
+                            <span class="stat-label">一般文物藏品</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pagination" id="pagination"></div>
+        </section>
+
+        <!-- 思政教育 -->
+        <section id="education" class="section animate-on-scroll">
+            <h2 class="section-title">思政教育基地</h2>
+            <p class="section-subtitle">弘扬南梁精神，培育时代新人</p>
+            <div class="card-grid">
+                <div class="card education-card">
+                    <div class="card-header"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">红色课程体系</h3>
+                        <p class="card-description">
+                            面向不同年龄段开发系列化红色教育课程，通过多媒体教学、实地体验等方式，传承革命传统，坚定理想信念。
+                        </p>
+                        <button class="card-button" onclick="openEducationProgram()">查看课程</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"></div>
+                    <div class="card-content">
+                        <h3 class="card-title">红色教育资源</h3>
+                        <p class="card-description">
+                            汇集专业讲解词库和思政教育素材，为学习者提供权威、系统的红色教育内容支撑。
+                        </p>
+                        <button class="card-button" onclick="openEducationResources()">浏览资源</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 关于我们 -->
+    <section id="about" class="about-section animate-on-scroll">
+        <div class="about-content">
+            <h2 class="section-title">关于南梁革命纪念馆</h2>
+            <p class="about-text">
+                南梁革命纪念馆位于甘肃省庆阳市华池县，是为纪念陕甘边革命根据地的建立和发展而建设的重要纪念场所。纪念馆于1986年经甘肃省委、省政府批准建设，2014年新馆正式开馆，是全国爱国主义教育示范基地。
+            </p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number">5236</span>
+                    <span class="stat-label">件馆藏文物</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">6426</span>
+                    <span class="stat-label">平方米展陈面积</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">国家二级博物馆</span>
+                    <span class="stat-label">荣誉称号</span>
+                </div>
+            </div>
+            <p class="about-text">
+                "面向群众、坚守信念、顾全大局、求实开拓"的南梁精神，是老一辈无产阶级革命家留给我们的宝贵财富。我们致力于传承红色基因，弘扬革命精神，为新时代的爱国主义教育贡献力量。
+            </p>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3 class="footer-title">南梁革命纪念馆</h3>
+                <p class="footer-text">
+                    地址：甘肃省庆阳市华池县南梁镇荔园堡<br>
+                    开放时间：周二至周日 9:00-17:00（周一闭馆，法定节假日除外）<br>
+                    咨询电话：0934-5371504<br>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 管理后台模态框 -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('adminModal')">&times;</span>
+            <div id="adminLogin" style="text-align: center; padding: 2rem;">
+                <h2 style="color: #c41e3a; margin-bottom: 2rem;">管理员登录</h2>
+                <div style="max-width: 400px; margin: 0 auto;">
+                    <div class="form-group">
+                        <input type="password" id="adminPassword" placeholder="请输入管理员密码" style="padding: 1rem; font-size: 1rem;">
+                    </div>
+                    <button class="btn-upload" onclick="adminLogin()" style="width: 100%; padding: 1rem; font-size: 1rem;">登录</button>
+                    <p style="color: #666; margin-top: 1rem; font-size: 0.9rem;">默认密码：nangliang2024</p>
+                </div>
+            </div>
+            
+            <div id="adminPanel" style="display: none;">
+                <h2 style="color: #c41e3a; margin-bottom: 2rem;">内容管理后台</h2>
+                
+                <div class="admin-tabs" style="display: flex; border-bottom: 2px solid #eee; margin-bottom: 2rem;">
+                    <button class="tab-btn active" onclick="switchTab('artifacts')">文物管理</button>
+                    <button class="tab-btn" onclick="switchTab('resources')">教育资源管理</button>
+                </div>
+                
+                <div id="artifactsAdmin" class="admin-content active">
+                    <div class="upload-area">
+                        <h3 style="color: #c41e3a; margin-bottom: 1rem;">上传文物资料</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div class="form-group">
+                                <label>文物名称:</label>
+                                <input type="text" id="artifactName" placeholder="请输入文物名称">
+                            </div>
+                            <div class="form-group">
+                                <label>文物等级:</label>
+                                <select id="artifactLevel">
+                                    <option value="国家一级文物">国家一级文物</option>
+                                    <option value="国家二级文物">国家二级文物</option>
+                                    <option value="国家三级文物">国家三级文物</option>
+                                    <option value="一般文物">一般文物</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>文物图片:</label>
+                                <input type="file" id="artifactImage" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>文物描述:</label>
+                            <textarea id="artifactDescription" placeholder="请输入文物的详细描述、历史背景等..." rows="3"></textarea>
+                        </div>
+                        <button class="btn-upload" onclick="uploadArtifact()">上传文物</button>
+                    </div>
+                    
+                    <h3 style="color: #c41e3a; margin-bottom: 1rem;">已上传的文物 (<span id="artifactCount">0</span>件)</h3>
+                    <div id="artifactsGrid" class="content-list">
+                        <div class="empty-state">
+                            <p>暂无上传的文物</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="resourcesAdmin" class="admin-content">
+                    <div class="upload-area">
+                        <h3 style="color: #c41e3a; margin-bottom: 1rem;">上传教育资源</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                            <div class="form-group">
+                                <label>资源标题:</label>
+                                <input type="text" id="resourceTitle" placeholder="如：纪念馆总体介绍、展厅详细讲解等">
+                            </div>
+                            <div class="form-group">
+                                <label>资源类型:</label>
+                                <select id="resourceType">
+                                    <option value="讲解词">讲解词</option>
+                                    <option value="课程资料">课程资料</option>
+                                    <option value="思政素材">思政素材</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>资源文档:</label>
+                                <input type="file" id="resourceFile" accept=".txt,.doc,.docx,.pdf">
+                            </div>
+                        </div>
+                        <button class="btn-upload" onclick="uploadResource()">上传资源</button>
+                    </div>
+                    
+                    <h3 style="color: #c41e3a; margin-bottom: 1rem;">已上传的资源 (<span id="resourceCount">0</span>篇)</h3>
+                    <div id="resourcesList" class="content-list">
+                        <div class="empty-state">
+                            <p>暂无上传的教育资源</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 文物详情模态框 -->
+    <div id="artifactModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('artifactModal')">&times;</span>
+            <div id="artifactDetails"></div>
+        </div>
+    </div>
+
+    <!-- AI聊天模态框 -->
+    <div id="aiChatModal" class="ai-chat-modal">
+        <div class="ai-chat-content">
+            <div class="ai-chat-header">
+                <h3>🤖 小南 - AI智能讲解员</h3>
+                <button class="ai-chat-send" onclick="closeAIChat()" style="background: transparent; padding: 0; font-size: 2rem;">&times;</button>
+            </div>
+            <div id="aiChatMessages" class="ai-chat-messages">
+                <div class="ai-message">
+                    您好！我是小南，南梁革命纪念馆的AI智能讲解员。我可以为您详细介绍南梁革命根据地的历史，回答关于刘志丹、谢子长、习仲勋等革命先辈的问题。请问您想了解什么？
+                </div>
+            </div>
+            <div class="ai-chat-input-area">
+                <form class="ai-chat-input-form" onsubmit="return false;">
+                    <input type="text" id="aiChatInput" class="ai-chat-input" placeholder="请输入您的问题...">
+                    <button type="button" class="ai-chat-send" onclick="sendAIMessage()">发送</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局变量 - 使用localStorage持久化
+        let artifactData = JSON.parse(localStorage.getItem('artifactData')) || [];
+        let resourceData = JSON.parse(localStorage.getItem('resourceData')) || [];
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let filteredData = [];
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStoredData();
+            animateOnScroll();
+            
+            window.addEventListener('scroll', function() {
+                animateOnScroll();
+                updateNavbar();
+            });
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // 更新导航激活状态
+                        document.querySelectorAll('.nav-item a').forEach(a => a.classList.remove('active'));
+                        this.classList.add('active');
+                        // 关闭移动菜单
+                        document.getElementById('navMenu').classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // 加载存储的数据
+        function loadStoredData() {
+            try {
+                updateArtifactsDisplay();
+                updateResourcesDisplay();
+                updatePublicArtifacts();
+            } catch (error) {
+                console.error('加载数据时出错:', error);
+            }
+        }
+
+        // 滚动动画
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // 导航栏滚动效果
+        function updateNavbar() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        // 汉堡菜单切换
+        function toggleMenu() {
+            document.getElementById('navMenu').classList.toggle('active');
+        }
+
+        // 外部链接功能
+        function openVRTour() {
+            window.open('https://www.720yun.com/t/1bvkuqr9diq#scene_id=41808513', '_blank');
+        }
+
+        function openAIChat() {
+            document.getElementById('aiChatModal').classList.add('show');
+        }
+
+        function closeAIChat() {
+            document.getElementById('aiChatModal').classList.remove('show');
+        }
+
+        function sendAIMessage() {
+            const input = document.getElementById('aiChatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const messagesDiv = document.getElementById('aiChatMessages');
+            messagesDiv.innerHTML += `<div class="user-message">${message}</div>`;
+            input.value = '';
+
+            // 模拟AI回复
+            setTimeout(() => {
+                messagesDiv.innerHTML += `<div class="ai-message">感谢您的提问。关于"${message}"，这是南梁革命历史中的重要内容...</div>`;
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            }, 1000);
+        }
+
+        function openKnowledgeGraph() {
+            showAlert('知识图谱功能开发中，敬请期待...', 'success');
+        }
+
+        function openAILearning() {
+            openAIChat();
+        }
+
+        function openEducationProgram() {
+            showAlert('红色课程体系正在建设中，敬请期待...', 'success');
+        }
+
+        function openEducationResources() {
+            if (resourceData.length === 0) {
+                showAlert('暂无教育资源，请联系管理员上传内容', 'error');
+            } else {
+                showResourcesList();
+            }
+        }
+
+        // 显示资源列表
+        function showResourcesList() {
+            const modal = document.getElementById('artifactModal');
+            const content = resourceData.map(resource => `
+                <div class="list-item" onclick="viewResource(${resource.id})">
+                    <div>
+                        <div class="item-title">${resource.title}</div>
+                        <div class="item-meta">${resource.type} | ${resource.uploadTime}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('artifactDetails').innerHTML = `
+                <h2 style="color: #c41e3a; margin-bottom: 2rem;">教育资源库</h2>
+                <div class="content-list">${content}</div>
+            `;
+            modal.classList.add('show');
+        }
+
+        // 搜索和筛选
+        function filterArtifacts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const levelFilter = document.getElementById('levelFilter').value;
+
+            filteredData = artifactData.filter(artifact => {
+                const matchesSearch = artifact.name.toLowerCase().includes(searchTerm) || 
+                                    (artifact.description || '').toLowerCase().includes(searchTerm);
+                const matchesLevel = !levelFilter || artifact.level === levelFilter;
+                return matchesSearch && matchesLevel;
+            });
+
+            currentPage = 1;
+            updatePublicArtifacts();
+        }
+
+        // 更新公开文物显示
+        function updatePublicArtifacts() {
+            const container = document.getElementById('artifactsDisplay');
+            const dataToShow = filteredData.length > 0 ? filteredData : artifactData;
+            
+            if (dataToShow.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <h3>文物展示</h3>
+                        <div class="stats-grid" style="margin-top: 2rem;">
+                            <div class="stat-item"><span class="stat-number">7</span><span class="stat-label">国家一级文物</span></div>
+                            <div class="stat-item"><span class="stat-number">16</span><span class="stat-label">国家二级文物</span></div>
+                            <div class="stat-item"><span class="stat-number">324</span><span class="stat-label">国家三级文物</span></div>
+                            <div class="stat-item"><span class="stat-number">4889</span><span class="stat-label">一般文物藏品</span></div>
+                        </div>
+                    </div>
+                `;
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            const start = (currentPage - 1) * itemsPerPage;
+            const end = start + itemsPerPage;
+            const pageItems = dataToShow.slice(start, end);
+
+            container.innerHTML = `
+                <div class="artifacts-grid">
+                    ${pageItems.map(artifact => `
+                        <div class="artifact-card" onclick="showArtifactDetails(${artifact.id})">
+                            <img src="${artifact.imageData}" alt="${artifact.name}">
+                            <div class="info">
+                                <div class="name">${artifact.name}</div>
+                                <div class="level">${artifact.level}</div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            updatePagination(dataToShow.length);
+        }
+
+        // 更新分页
+        function updatePagination(totalItems) {
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            const pagination = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                pagination.innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+            }
+            pagination.innerHTML = html;
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            updatePublicArtifacts();
+            document.getElementById('artifacts').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 管理后台功能
+        function openAdmin() {
+            document.getElementById('adminModal').classList.add('show');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('show');
+        }
+
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            if (password === 'nangliang2024') {
+                document.getElementById('adminLogin').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                updateArtifactsDisplay();
+                updateResourcesDisplay();
+            } else {
+                showAlert('密码错误！');
+            }
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.admin-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + 'Admin').classList.add('active');
+        }
+
+        // 上传文物
+        function uploadArtifact() {
+            const name = document.getElementById('artifactName').value.trim();
+            const level = document.getElementById('artifactLevel').value;
+            const description = document.getElementById('artifactDescription').value.trim();
+            const fileInput = document.getElementById('artifactImage');
+            const file = fileInput.files[0];
+            
+            if (!name || !file) {
+                showAlert('请填写文物名称并选择图片！');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const artifact = {
+                    id: Date.now(),
+                    name: name,
+                    level: level,
+                    description: description,
+                    imageData: e.target.result,
+                    uploadTime: new Date().toLocaleString()
+                };
+                
+                artifactData.push(artifact);
+                localStorage.setItem('artifactData', JSON.stringify(artifactData));
+                
+                document.getElementById('artifactName').value = '';
+                document.getElementById('artifactDescription').value = '';
+                document.getElementById('artifactImage').value = '';
+                
+                updateArtifactsDisplay();
+                updatePublicArtifacts();
+                showAlert('文物上传成功！', 'success');
+            };
+            
+            reader.readAsDataURL(file);
+        }
+
+        // 上传资源
+        function uploadResource() {
+            const title = document.getElementById('resourceTitle').value.trim();
+            const type = document.getElementById('resourceType').value;
+            const fileInput = document.getElementById('resourceFile');
+            const file = fileInput.files[0];
+            
+            if (!title || !file) {
+                showAlert('请填写资源标题并选择文件！');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const resource = {
+                    id: Date.now(),
+                    title: title,
+                    type: type,
+                    fileName: file.name,
+                    content: e.target.result,
+                    uploadTime: new Date().toLocaleString()
+                };
+                
+                resourceData.push(resource);
+                localStorage.setItem('resourceData', JSON.stringify(resourceData));
+                
+                document.getElementById('resourceTitle').value = '';
+                document.getElementById('resourceFile').value = '';
+                
+                updateResourcesDisplay();
+                showAlert('教育资源上传成功！', 'success');
+            };
+            
+            reader.readAsText(file, 'UTF-8');
+        }
+
+        // 更新文物显示（管理后台）
+        function updateArtifactsDisplay() {
+            const container = document.getElementById('artifactsGrid');
+            const count = document.getElementById('artifactCount');
+            
+            if (count) count.textContent = artifactData.length;
+            
+            if (artifactData.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>暂无上传的文物</p></div>';
+                return;
+            }
+            
+            container.innerHTML = artifactData.map(artifact => `
+                <div class="list-item">
+                    <div>
+                        <div class="item-title">${artifact.name}</div>
+                        <div class="item-meta">${artifact.level} | ${artifact.uploadTime}</div>
+                    </div>
+                    <div>
+                        <button class="btn-view" onclick="viewArtifact(${artifact.id})">查看</button>
+                        <button class="btn-delete" onclick="deleteArtifact(${artifact.id})">删除</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 更新资源显示（管理后台）
+        function updateResourcesDisplay() {
+            const container = document.getElementById('resourcesList');
+            const count = document.getElementById('resourceCount');
+            
+            if (count) count.textContent = resourceData.length;
+            
+            if (resourceData.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>暂无上传的教育资源</p></div>';
+                return;
+            }
+            
+            container.innerHTML = resourceData.map(resource => `
+                <div class="list-item">
+                    <div>
+                        <div class="item-title">${resource.title}</div>
+                        <div class="item-meta">${resource.type} | ${resource.uploadTime}</div>
+                    </div>
+                    <div>
+                        <button class="btn-view" onclick="viewResource(${resource.id})">查看</button>
+                        <button class="btn-delete" onclick="deleteResource(${resource.id})">删除</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 查看文物详情
+        function viewArtifact(id) {
+            showArtifactDetails(id);
+        }
+
+        function showArtifactDetails(id) {
+            const artifact = artifactData.find(a => a.id === id);
+            if (!artifact) return;
+            
+            const modal = document.getElementById('artifactModal');
+            document.getElementById('artifactDetails').innerHTML = `
+                <h2 style="color: #c41e3a; text-align: center; margin-bottom: 1rem;">${artifact.name}</h2>
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <span style="background: linear-gradient(45deg, #c41e3a, #8b0000); color: white; padding: 5px 15px; border-radius: 15px; font-size: 14px;">${artifact.level}</span>
+                </div>
+                <img src="${artifact.imageData}" alt="${artifact.name}" style="width: 100%; max-width: 600px; height: auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); display: block; margin: 20px auto;">
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <h3 style="color: #c41e3a; margin-bottom: 1rem;">文物介绍</h3>
+                    <p style="line-height: 1.8; font-size: 16px;">${artifact.description || '这件珍贵文物见证了南梁革命根据地的光辉历史，承载着深厚的红色文化内涵。'}</p>
+                </div>
+                <div style="text-align: center; margin-top: 2rem; color: #666; font-size: 0.9rem;">
+                    上传时间：${artifact.uploadTime}
+                </div>
+            `;
+            modal.classList.add('show');
+        }
+
+        // 查看资源
+        function viewResource(id) {
+            const resource = resourceData.find(r => r.id === id);
+            if (!resource) return;
+            
+            const modal = document.getElementById('artifactModal');
+            document.getElementById('artifactDetails').innerHTML = `
+                <h2 style="color: #c41e3a; text-align: center; margin-bottom: 1rem;">${resource.title}</h2>
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <span style="background: linear-gradient(45deg, #c41e3a, #8b0000); color: white; padding: 5px 15px; border-radius: 15px; font-size: 14px;">${resource.type}</span>
+                </div>
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                    <pre style="white-space: pre-wrap; font-family: inherit; line-height: 1.6;">${resource.content}</pre>
+                </div>
+                <div style="text-align: center; margin-top: 2rem; color: #666; font-size: 0.9rem;">
+                    文件：${resource.fileName} | 上传时间：${resource.uploadTime}
+                </div>
+            `;
+            modal.classList.add('show');
+        }
+
+        // 删除功能
+        function deleteArtifact(id) {
+            if (confirm('确定要删除这个文物吗？')) {
+                artifactData = artifactData.filter(a => a.id !== id);
+                localStorage.setItem('artifactData', JSON.stringify(artifactData));
+                updateArtifactsDisplay();
+                updatePublicArtifacts();
+                showAlert('文物删除成功！', 'success');
+            }
+        }
+
+        function deleteResource(id) {
+            if (confirm('确定要删除这个资源吗？')) {
+                resourceData = resourceData.filter(r => r.id !== id);
+                localStorage.setItem('resourceData', JSON.stringify(resourceData));
+                updateResourcesDisplay();
+                showAlert('资源删除成功！', 'success');
+            }
+        }
+
+        // 显示提示信息
+        function showAlert(message, type = 'error') {
+            const alert = document.createElement('div');
+            alert.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 1rem 2rem;
+                border-radius: 10px;
+                z-index: 3000;
+                font-weight: 500;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                animation: fadeIn 0.3s ease;
+            `;
+            
+            if (type === 'success') {
+                alert.style.background = '#d4edda';
+                alert.style.color = '#155724';
+                alert.style.border = '1px solid #c3e6cb';
+            } else {
+                alert.style.background = '#f8d7da';
+                alert.style.color = '#721c24';
+                alert.style.border = '1px solid #f5c6cb';
+            }
+            
+            alert.innerHTML = `
+                ${message}
+                <span onclick="this.parentElement.remove()" style="margin-left: 1rem; cursor: pointer; font-weight: bold;">&times;</span>
+            `;
+            
+            document.body.appendChild(alert);
+            
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal') || e.target.classList.contains('ai-chat-modal')) {
+                e.target.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
