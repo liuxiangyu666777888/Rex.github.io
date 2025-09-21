@@ -1,0 +1,429 @@
+/* 大屏幕设备 (1440px+) */
+@media (min-width: 1440px) {
+    .nav-container,
+    .main-content,
+    .footer-content {
+        max-width: 1400px;
+    }
+    
+    .hero-title {
+        font-size: 5rem;
+    }
+    
+    .section-title {
+        font-size: 3rem;
+    }
+}
+
+/* 平板设备 (768px - 1024px) */
+@media (max-width: 1024px) {
+    .nav-container {
+        padding: 0 1rem;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.3rem;
+    }
+    
+    .section-title {
+        font-size: 2.2rem;
+    }
+    
+    .card-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+    
+    .main-content {
+        padding: 3rem 1rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* 移动设备 (768px及以下) */
+@media (max-width: 768px) {
+    /* 导航栏移动端适配 */
+    .hamburger {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        flex-direction: column;
+        background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
+        padding: 2rem;
+        gap: 1rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* 英雄区域移动端适配 */
+    .hero {
+        height: 100vh;
+        padding: 1rem;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .cta-button {
+        width: 100%;
+        max-width: 300px;
+        padding: 1rem;
+    }
+
+    /* 内容区域移动端适配 */
+    .main-content {
+        padding: 2rem 1rem;
+    }
+    
+    .section {
+        margin-bottom: 4rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* 卡片网格移动端适配 */
+    .card-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .card-content {
+        padding: 1.5rem;
+    }
+    
+    .card-title {
+        font-size: 1.2rem;
+    }
+    
+    .card-description {
+        font-size: 0.9rem;
+    }
+
+    /* 搜索筛选栏移动端适配 */
+    .search-filter-bar {
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .search-input,
+    .filter-select {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    /* 文物网格移动端适配 */
+    .artifacts-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+    
+    .artifact-card .info {
+        padding: 1rem;
+    }
+    
+    .artifact-card .name {
+        font-size: 1rem;
+    }
+
+    /* 统计数据移动端适配 */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin: 2rem 0;
+    }
+    
+    .stat-item {
+        padding: 1rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    /* 关于我们区域移动端适配 */
+    .about-section {
+        padding: 2rem 1rem;
+        margin-top: 2rem;
+    }
+    
+    .about-text {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* 页脚移动端适配 */
+    .footer {
+        padding: 2rem 1rem 1rem;
+    }
+    
+    .footer-title {
+        font-size: 1.3rem;
+    }
+    
+    .footer-text {
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+
+    /* 模态框移动端适配 */
+    .modal-content {
+        width: 95%;
+        max-height: 90vh;
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .close {
+        right: 0.5rem;
+        top: 0.5rem;
+        font-size: 1.5rem;
+    }
+
+    /* AI聊天移动端适配 */
+    .ai-chat-content {
+        width: 95%;
+        height: 90vh;
+        margin: 1rem;
+    }
+    
+    .ai-chat-header {
+        padding: 1rem;
+    }
+    
+    .ai-chat-header h3 {
+        font-size: 1.1rem;
+    }
+    
+    .ai-chat-messages {
+        padding: 0.5rem;
+    }
+    
+    .ai-message,
+    .user-message {
+        max-width: 90%;
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .ai-chat-input-area {
+        padding: 1rem;
+    }
+    
+    .ai-chat-input-form {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .ai-chat-input {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .ai-chat-send {
+        padding: 0.8rem 1.5rem;
+        width: 100%;
+    }
+
+    /* 管理后台移动端适配 */
+    .admin-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+    
+    .upload-area {
+        padding: 1rem;
+    }
+    
+    .upload-area > div {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+    
+    .list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+    
+    .btn-view,
+    .btn-delete {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    /* 分页移动端适配 */
+    .pagination {
+        flex-wrap: wrap;
+        gap: 0.3rem;
+    }
+    
+    .page-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* 小屏幕移动设备 (480px及以下) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .hero-description {
+        font-size: 0.9rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+    }
+    
+    .card-content {
+        padding: 1rem;
+    }
+    
+    .artifacts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ai-chat-content {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0;
+    }
+    
+    .modal-content {
+        width: 100%;
+        height: 100vh;
+        margin: 0;
+        border-radius: 0;
+        max-height: none;
+    }
+}
+
+/* 高分辨率屏幕优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo::before {
+        background-image: url("https://i.ibb.co/DPbLCqW2/2025-09-01-11-00-20.png");
+    }
+}
+
+/* 横屏适配 */
+@media (orientation: landscape) and (max-height: 500px) {
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding: 6rem 1rem 2rem;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    .hero-description {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* 打印样式 */
+@media print {
+    .navbar,
+    .hamburger,
+    .cta-buttons,
+    .modal,
+    .ai-chat-modal {
+        display: none !important;
+    }
+    
+    .hero {
+        height: auto;
+        background: white;
+        color: black;
+        page-break-after: always;
+    }
+    
+    .section {
+        page-break-inside: avoid;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+    }
+}

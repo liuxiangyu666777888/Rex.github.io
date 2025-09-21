@@ -1,0 +1,455 @@
+/* 搜索筛选栏 */
+.search-filter-bar {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(196, 30, 58, 0.1);
+}
+
+.filter-select {
+    padding: 0.8rem 1.2rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 25px;
+    background: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+/* 卡片网格 */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    height: 200px;
+    background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.card-content {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--primary-red);
+}
+
+.card-description {
+    color: var(--text-gray);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.card-button {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(45deg, var(--primary-red), var(--deep-red));
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.card-button:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(196, 30, 58, 0.3);
+}
+
+/* 特殊卡片样式 */
+.vr-card .card-header {
+    background: url('https://i.ibb.co/FQ0tJMd/2025-09-21-15-38-01.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.knowledge-card .card-header {
+    background: url('https://i.ibb.co/bjMtbLky/2025-09-21-15-50-03.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.ai-card .card-header {
+    background: url('https://i.ibb.co/C5b5DxXr/2025-09-21-15-37-32.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.artifacts-card .card-header {
+    background: linear-gradient(135deg, #43e97b, #38f9d7);
+}
+
+.education-card .card-header {
+    background: url('https://i.ibb.co/mCcpqYHB/2025-09-21-16-02-33.png');
+    background-size: cover;
+    background-position: center;
+}
+
+/* 文物展示优化 */
+.artifacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.artifact-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.artifact-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.artifact-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.artifact-card .info {
+    padding: 1.5rem;
+}
+
+.artifact-card .name {
+    font-weight: bold;
+    color: var(--primary-red);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.artifact-card .level {
+    background: linear-gradient(45deg, var(--primary-red), var(--deep-red));
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    display: inline-block;
+}
+
+/* 模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    max-width: 900px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideInUp 0.3s ease;
+    width: 90%;
+}
+
+.close {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: var(--primary-red);
+}
+
+/* 管理后台样式 */
+.tab-btn {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: var(--primary-red);
+    border-bottom-color: var(--primary-red);
+    font-weight: bold;
+}
+
+.admin-content {
+    display: none;
+}
+
+.admin-content.active {
+    display: block;
+}
+
+.upload-area {
+    background: var(--bg-light);
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    border: 2px dashed #ddd;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.btn-upload {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(45deg, var(--primary-red), var(--deep-red));
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.content-list {
+    max-height: 400px;
+    overflow-y: auto;
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 10px;
+}
+
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.item-title {
+    font-weight: bold;
+    color: var(--primary-red);
+}
+
+.item-meta {
+    font-size: 0.85rem;
+    color: var(--text-gray);
+}
+
+.btn-view, .btn-delete {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.btn-view {
+    background: #17a2b8;
+    color: white;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: white;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-gray);
+}
+
+/* 分页 */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+}
+
+.page-btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--primary-red);
+    background: white;
+    color: var(--primary-red);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-btn:hover,
+.page-btn.active {
+    background: var(--primary-red);
+    color: white;
+}
+
+/* AI聊天模态框样式 */
+.ai-chat-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.ai-chat-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ai-chat-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 800px;
+    width: 90%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.ai-chat-header {
+    background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
+    color: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ai-chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    background: var(--bg-light);
+}
+
+.ai-message, .user-message {
+    margin: 1rem 0;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    line-height: 1.6;
+    max-width: 80%;
+}
+
+.user-message {
+    background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
+    color: white;
+    margin-left: auto;
+}
+
+.ai-message {
+    background: white;
+    color: #333;
+    border: 1px solid var(--primary-red);
+}
+
+.ai-chat-input-area {
+    padding: 1.5rem;
+    background: white;
+    border-top: 1px solid #eee;
+}
+
+.ai-chat-input-form {
+    display: flex;
+    gap: 1rem;
+}
+
+.ai-chat-input {
+    flex: 1;
+    padding: 1rem 1.5rem;
+    border: 2px solid var(--primary-red);
+    border-radius: 25px;
+    font-size: 1rem;
+}
+
+.ai-chat-send {
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--primary-red), var(--deep-red));
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
