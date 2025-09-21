@@ -1,0 +1,99 @@
+{
+  "name": "nangliang-memorial-website",
+  "version": "1.2.0",
+  "description": "南梁革命纪念馆官方网站 - 传承红色基因，弘扬南梁精神",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server --port=8080",
+    "build": "npm run minify-css && npm run minify-js",
+    "minify-css": "npx cleancss-cli css/style.css css/components.css css/responsive.css -o dist/style.min.css",
+    "minify-js": "npx uglify-js js/main.js js/components.js -o dist/script.min.js",
+    "validate": "npx html-validate index.html",
+    "lighthouse": "npx lighthouse-ci autorun",
+    "deploy": "npm run build && npx gh-pages -d ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nangliang-memorial/website.git"
+  },
+  "keywords": [
+    "南梁",
+    "革命纪念馆",
+    "红色教育",
+    "陕甘边革命根据地",
+    "历史文化",
+    "VR展览",
+    "AI导览",
+    "博物馆",
+    "思政教育"
+  ],
+  "author": {
+    "name": "南梁革命纪念馆技术团队",
+    "email": "tech@nangliang-memorial.org",
+    "url": "https://nangliang-memorial.github.io"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nangliang-memorial/website/issues"
+  },
+  "homepage": "https://nangliang-memorial.github.io",
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "gh-pages": "^6.1.1",
+    "html-validate": "^8.7.4",
+    "lighthouse-ci": "^0.12.0",
+    "live-server": "^1.2.2",
+    "serve": "^14.2.1",
+    "uglify-js": "^3.17.4"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "files": [
+    "index.html",
+    "css/",
+    "js/",
+    "images/",
+    "fonts/",
+    "README.md"
+  ],
+  "config": {
+    "port": 8080,
+    "host": "localhost"
+  },
+  "metadata": {
+    "title": "南梁革命纪念馆官方网站",
+    "description": "展示陕甘边革命根据地历史文化的现代化网站平台",
+    "version": "1.2.0",
+    "lastUpdated": "2024-09-21",
+    "features": [
+      "VR全景参观",
+      "AI智能导览", 
+      "文物展示系统",
+      "教育资源管理",
+      "响应式设计",
+      "内容管理后台"
+    ],
+    "technologies": [
+      "HTML5",
+      "CSS3",
+      "JavaScript ES6+",
+      "PWA",
+      "响应式设计"
+    ],
+    "performance": {
+      "lighthouse": "90+",
+      "loadTime": "<2s",
+      "mobileOptimized": true,
+      "seoOptimized": true
+    }
+  }
+}

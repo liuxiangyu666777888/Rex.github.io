@@ -1,0 +1,257 @@
+{
+  "name": "南梁革命纪念馆",
+  "short_name": "南梁纪念馆",
+  "description": "南梁革命纪念馆官方网站 - 传承红色基因，弘扬南梁精神",
+  "version": "1.2.0",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#c41e3a",
+  "background_color": "#ffffff",
+  "lang": "zh-CN",
+  "dir": "ltr",
+  
+  "icons": [
+    {
+      "src": "images/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  
+  "shortcuts": [
+    {
+      "name": "VR全景参观",
+      "short_name": "VR参观",
+      "description": "720度全景虚拟参观体验",
+      "url": "/#digital",
+      "icons": [
+        {
+          "src": "images/icons/vr-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "AI智能导览",
+      "short_name": "AI导览",
+      "description": "智能问答和导览服务",
+      "url": "/#ai-chat",
+      "icons": [
+        {
+          "src": "images/icons/ai-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "文物展示",
+      "short_name": "文物",
+      "description": "浏览珍贵革命文物",
+      "url": "/#artifacts",
+      "icons": [
+        {
+          "src": "images/icons/artifact-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "参观服务",
+      "short_name": "服务",
+      "description": "参观预约和服务信息",
+      "url": "/#services",
+      "icons": [
+        {
+          "src": "images/icons/service-icon-96x96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  
+  "categories": [
+    "education",
+    "history",
+    "culture",
+    "tourism",
+    "museum"
+  ],
+  
+  "screenshots": [
+    {
+      "src": "images/screenshots/desktop-home.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "桌面端首页展示"
+    },
+    {
+      "src": "images/screenshots/mobile-home.png",
+      "sizes": "375x667",
+      "type": "image/png",
+      "platform": "narrow",
+      "label": "移动端首页展示"
+    },
+    {
+      "src": "images/screenshots/vr-experience.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "VR全景参观体验"
+    },
+    {
+      "src": "images/screenshots/artifacts-gallery.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "文物展示画廊"
+    }
+  ],
+  
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "web",
+      "url": "https://nangliang-memorial.github.io/"
+    }
+  ],
+  
+  "iarc_rating_id": "e84b072d-71b3-4d3e-86ae-31a8ce4e53b7",
+  
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  
+  "file_handlers": [
+    {
+      "action": "/upload",
+      "accept": {
+        "image/*": [".jpg", ".jpeg", ".png", ".gif", ".webp"],
+        "text/*": [".txt", ".md"],
+        "application/pdf": [".pdf"]
+      }
+    }
+  ],
+  
+  "protocol_handlers": [
+    {
+      "protocol": "web+nangliang",
+      "url": "/?action=%s"
+    }
+  ],
+  
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  
+  "handle_links": "preferred",
+  
+  "capture_links": "existing-client-navigate",
+  
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "files",
+          "accept": [
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/webp",
+            "text/plain",
+            "application/pdf"
+          ]
+        }
+      ]
+    }
+  },
+  
+  "display_override": [
+    "window-controls-overlay",
+    "minimal-ui",
+    "standalone",
+    "browser"
+  ],
+  
+  "user_preferences": {
+    "color_scheme_dark": {
+      "theme_color": "#1a1a1a",
+      "background_color": "#000000"
+    },
+    "color_scheme_light": {
+      "theme_color": "#c41e3a",
+      "background_color": "#ffffff"
+    }
+  },
+  
+  "permissions": [
+    "camera",
+    "microphone",
+    "geolocation",
+    "notifications",
+    "persistent-storage"
+  ],
+  
+  "features": [
+    "cross-origin-isolated"
+  ],
+  
+  "id": "nangliang-revolutionary-memorial",
+  
+  "note": "南梁革命纪念馆PWA应用清单文件 - 支持离线访问、推送通知、文件分享等功能"
+}

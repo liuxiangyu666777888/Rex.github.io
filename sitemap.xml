@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                           http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- 首页 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://nangliang-memorial.github.io/images/hero-bg.jpg</image:loc>
+      <image:caption>南梁革命纪念馆主楼</image:caption>
+      <image:title>南梁革命纪念馆</image:title>
+    </image:image>
+  </url>
+
+  <!-- 关于我们 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/#about</loc>
+    <lastmod>2024-01-10T15:30:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- 数字展馆 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/#digital</loc>
+    <lastmod>2024-01-12T09:20:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://nangliang-memorial.github.io/images/vr-experience.jpg</image:loc>
+      <image:caption>VR全景参观体验</image:caption>
+      <image:title>数字展馆体验</image:title>
+    </image:image>
+  </url>
+
+  <!-- 基本陈列 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/#exhibitions</loc>
+    <lastmod>2024-01-08T14:15:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://nangliang-memorial.github.io/images/exhibition-hall.jpg</image:loc>
+      <image:caption>基本陈列展厅</image:caption>
+      <image:title>革命历史展览</image:title>
+    </image:image>
+  </url>
+
+  <!-- 馆藏文物 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/#artifacts</loc>
+    <lastmod>2024-01-14T11:45:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://nangliang-memorial.github.io/images/artifacts-display.jpg</image:loc>
+      <image:caption>珍贵革命文物展示</image:caption>
+      <image:title>馆藏文物</image:title>
+    </image:image>
+  </url>
+
+  <!-- 红色教育 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/#education</loc>
+    <lastmod>2024-01-11T16:30:00+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- 参观服务 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/#services</loc>
+    <lastmod>2024-01-09T13:20:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- 离线页面 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/offline.html</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- PWA清单文件 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/manifest.json</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Service Worker -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/sw.js</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- 样式文件 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/css/style.css</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://nangliang-memorial.github.io/css/components.css</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://nangliang-memorial.github.io/css/responsive.css</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- JavaScript文件 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/js/main.js</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://nangliang-memorial.github.io/js/components.js</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://nangliang-memorial.github.io/js/utils.js</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- 重要图片资源 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/images/logo.png</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://nangliang-memorial.github.io/images/logo.png</image:loc>
+      <image:caption>南梁革命纪念馆标志</image:caption>
+      <image:title>纪念馆LOGO</image:title>
+    </image:image>
+  </url>
+
+  <!-- 图标文件 -->
+  <url>
+    <loc>https://nangliang-memorial.github.io/images/icons/icon-192x192.png</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://nangliang-memorial.github.io/images/icons/icon-512x512.png</loc>
+    <lastmod>2024-01-15T10:00:00+08:00</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
