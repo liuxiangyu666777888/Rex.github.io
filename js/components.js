@@ -1,77 +1,55 @@
 // 文物管理相关功能 - 修复版本
 function uploadArtifact() {
-    console.log('开始上传文物...'); // 添加调试日志
+    console.log('开始添加文物...');
     
     const name = document.getElementById('artifactName').value.trim();
     const level = document.getElementById('artifactLevel').value;
     const description = document.getElementById('artifactDescription').value.trim();
-    const fileInput = document.getElementById('artifactImage');
-    const file = fileInput.files[0];
+    const imageUrl = document.getElementById('artifactImageUrl').value.trim(); // 改为URL
     
-    console.log('表单数据:', { name, level, file }); // 调试日志
-    
-    if (!name || !file) {
-        showAlert('请填写文物名称并选择图片！');
+    if (!name || !imageUrl) {
+        showAlert('请填写文物名称和图片URL！');
         return;
     }
 
-    // 检查文件类型 - 支持更多格式
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-    if (!allowedTypes.includes(file.type)) {
-        showAlert('请选择有效的图片文件（JPG、PNG、GIF、WebP）');
-        return;
-    }
-    
-    // 检查文件大小 - 修改为20MB限制
-    const maxSize = 20 * 1024 * 1024; // 20MB
-    if (file.size > maxSize) {
-        showAlert(`图片文件大小不能超过20MB，当前文件大小：${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+    // 验证URL
+    try {
+        new URL(imageUrl);
+    } catch (error) {
+        showAlert('请输入有效的图片URL！');
         return;
     }
 
-    // 显示上传进度
-    showAlert('正在上传文物，请稍候...', 'info');
-    
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-        try {
-            const artifact = {
-                id: Date.now(),
-                name: name,
-                level: level,
-                description: description,
-                imageData: e.target.result,
-                uploadTime: new Date().toLocaleString()
-            };
-            
-            console.log('创建文物对象:', artifact); // 调试日志
-            
-            artifactData.push(artifact);
-            localStorage.setItem('artifactData', JSON.stringify(artifactData));
-            
-            // 清空表单
-            document.getElementById('artifactName').value = '';
-            document.getElementById('artifactDescription').value = '';
-            document.getElementById('artifactImage').value = '';
-            
-            updateArtifactsDisplay();
-            updatePublicArtifacts();
-            showAlert('文物上传成功！', 'success');
-            
-            console.log('文物上传完成'); // 调试日志
-        } catch (error) {
-            console.error('上传过程中出错:', error);
-            showAlert('上传失败，请重试！', 'error');
-        }
-    };
-    
-    reader.onerror = function(error) {
-        console.error('文件读取错误:', error);
-        showAlert('文件读取失败，请重试！', 'error');
-    };
-    
-    reader.readAsDataURL(file);
+    // GitHub blob链接检测
+    if (imageUrl.includes('github.com') && imageUrl.includes('/blob/')) {
+        showAlert('检测到GitHub blob链接！请改用：\n1. raw.githubusercontent.com 链接\n2. 或 GitHub Pages 链接', 'error');
+        return;
+    }
+
+    try {
+        const artifact = {
+            id: Date.now(),
+            name: name,
+            level: level,
+            description: description,
+            imageUrl: imageUrl,  // 直接保存URL
+            uploadTime: new Date().toLocaleString()
+        };
+        
+        artifactData.push(artifact);
+        localStorage.setItem('artifactData', JSON.stringify(artifactData));
+        
+        document.getElementById('artifactName').value = '';
+        document.getElementById('artifactDescription').value = '';
+        document.getElementById('artifactImageUrl').value = '';
+        
+        updateArtifactsDisplay();
+        updatePublicArtifacts();
+        showAlert('文物添加成功！', 'success');
+    } catch (error) {
+        console.error('添加错误:', error);
+        showAlert('添加失败！', 'error');
+    }
 }
 
 // 上传资源
@@ -200,7 +178,7 @@ function showArtifactDetails(id) {
         <div style="text-align: center; margin-bottom: 2rem;">
             <span style="background: linear-gradient(45deg, var(--primary-red), var(--deep-red)); color: white; padding: 5px 15px; border-radius: 15px; font-size: 14px;">${artifact.level}</span>
         </div>
-        <img src="${artifact.imageData}" alt="${artifact.name}" style="width: 100%; max-width: 600px; height: auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); display: block; margin: 20px auto;">
+        <img src="${artifact.imageUrl}" alt="${artifact.name}" style="width: 100%; max-width: 600px; height: auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); display: block; margin: 20px auto;">
         <div style="background: var(--bg-light); padding: 20px; border-radius: 10px; margin-top: 20px;">
             <h3 style="color: var(--primary-red); margin-bottom: 1rem;">文物介绍</h3>
             <p style="line-height: 1.8; font-size: 16px;">${artifact.description || '这件珍贵文物见证了南梁革命根据地的光辉历史，承载着深厚的红色文化内涵。'}</p>
@@ -542,5 +520,27 @@ function initDragAndDrop() {
     });
 }
 
+// 数据导出功能
+function exportAllData() {
+    const data = {
+        artifacts: artifactData,
+        resources: resourceData,
+        exportTime: new Date().toISOString()
+    };
+    
+    const dataStr = JSON.stringify(data, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `nangliang_data_${Date.now()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+    
+    console.log('=== 导出的数据（可复制） ===');
+    console.log(dataStr);
+    
+    showAlert('数据已导出！\n1. 已下载JSON文件\n2. 控制台也有输出（F12查看）', 'success');
+}
 // 页面加载完成后初始化拖放功能
 document.addEventListener('DOMContentLoaded', initDragAndDrop);
