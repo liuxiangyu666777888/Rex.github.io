@@ -1,11 +1,11 @@
-// 文物管理相关功能 - 修复版本
+// 文物管理相关功能 
 function uploadArtifact() {
     console.log('开始添加文物...');
     
     const name = document.getElementById('artifactName').value.trim();
     const level = document.getElementById('artifactLevel').value;
     const description = document.getElementById('artifactDescription').value.trim();
-    const imageUrl = document.getElementById('artifactImageUrl').value.trim(); // 改为URL
+    const imageUrl = document.getElementById('artifactImageUrl').value.trim();
     
     if (!name || !imageUrl) {
         showAlert('请填写文物名称和图片URL！');
@@ -20,41 +20,49 @@ function uploadArtifact() {
         return;
     }
 
-    // GitHub blob链接检测
-    if (imageUrl.includes('github.com') && imageUrl.includes('/blob/')) {
-        showAlert('检测到GitHub blob链接！请改用：\n1. raw.githubusercontent.com 链接\n2. 或 GitHub Pages 链接', 'error');
-        return;
-    }
-
-    try {
-        const artifact = {
-            id: Date.now(),
-            name: name,
-            level: level,
-            description: description,
-            imageUrl: imageUrl,  // 直接保存URL
-            uploadTime: new Date().toLocaleString()
-        };
-        
-        artifactData.push(artifact);
-        localStorage.setItem('artifactData', JSON.stringify(artifactData));
-        
-        document.getElementById('artifactName').value = '';
-        document.getElementById('artifactDescription').value = '';
-        document.getElementById('artifactImageUrl').value = '';
-        
-        updateArtifactsDisplay();
-        updatePublicArtifacts();
-        showAlert('文物添加成功！', 'success');
-    } catch (error) {
-        console.error('添加错误:', error);
-        showAlert('添加失败！', 'error');
-    }
+    // 验证图片是否可以加载
+    const testImage = new Image();
+    testImage.onload = function() {
+        // 图片加载成功，保存文物
+        try {
+            const artifact = {
+                id: Date.now(),
+                name: name,
+                level: level,
+                description: description,
+                imageUrl: imageUrl,  // 保存图片URL
+                imageData: imageUrl, // 为了兼容显示逻辑，同时保存为imageData
+                uploadTime: new Date().toLocaleString()
+            };
+            
+            artifactData.push(artifact);
+            localStorage.setItem('artifactData', JSON.stringify(artifactData));
+            
+            // 清空表单
+            document.getElementById('artifactName').value = '';
+            document.getElementById('artifactDescription').value = '';
+            document.getElementById('artifactImageUrl').value = '';
+            
+            updateArtifactsDisplay();
+            updatePublicArtifacts();
+            showAlert('文物添加成功！', 'success');
+        } catch (error) {
+            console.error('添加错误:', error);
+            showAlert('添加失败！', 'error');
+        }
+    };
+    
+    testImage.onerror = function() {
+        showAlert('图片URL无法访问，请检查链接是否正确！', 'error');
+    };
+    
+    // 开始测试图片加载
+    testImage.src = imageUrl;
 }
 
-// 上传资源
+// 上传资源 
 function uploadResource() {
-    console.log('开始上传资源...'); // 添加调试日志
+    console.log('开始上传资源...');
     
     const title = document.getElementById('resourceTitle').value.trim();
     const type = document.getElementById('resourceType').value;
@@ -66,8 +74,8 @@ function uploadResource() {
         return;
     }
 
-    // 检查文件大小 - 20MB限制
-    const maxSize = 20 * 1024 * 1024; // 20MB
+    // 检查文件大小 
+    const maxSize = 20 * 1024 * 1024; 
     if (file.size > maxSize) {
         showAlert(`文件大小不能超过20MB，当前文件大小：${(file.size / (1024 * 1024)).toFixed(2)}MB`);
         return;
@@ -75,40 +83,78 @@ function uploadResource() {
 
     showAlert('正在上传资源，请稍候...', 'info');
 
-    const reader = new FileReader();
+    // 根据文件类型选择不同的处理方式
+    const fileExtension = file.name.split('.').pop().toLowerCase();
     
-    reader.onload = function(e) {
-        try {
-            const resource = {
-                id: Date.now(),
-                title: title,
-                type: type,
-                fileName: file.name,
-                content: e.target.result,
-                uploadTime: new Date().toLocaleString()
-            };
-            
-            resourceData.push(resource);
-            localStorage.setItem('resourceData', JSON.stringify(resourceData));
-            
-            // 清空表单
-            document.getElementById('resourceTitle').value = '';
-            document.getElementById('resourceFile').value = '';
-            
-            updateResourcesDisplay();
-            showAlert('教育资源上传成功！', 'success');
-        } catch (error) {
-            console.error('资源上传错误:', error);
-            showAlert('上传失败，请重试！', 'error');
-        }
-    };
-    
-    reader.onerror = function(error) {
-        console.error('文件读取错误:', error);
-        showAlert('文件读取失败，请重试！', 'error');
-    };
-    
-    reader.readAsText(file, 'UTF-8');
+    if (fileExtension === 'txt') {
+        // 文本文件直接读取
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            saveResource(title, type, file.name, e.target.result);
+        };
+        reader.onerror = function(error) {
+            console.error('文件读取错误:', error);
+            showAlert('文件读取失败，请重试！', 'error');
+        };
+        reader.readAsText(file, 'UTF-8');
+        
+    } else if (fileExtension === 'doc' || fileExtension === 'docx') {
+        // Word文档处理
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const content = `[Word文档: ${file.name}]\n\n注意：Word文档已上传，但建议将内容复制到.txt文件中重新上传以获得更好的显示效果。\n\n文件大小: ${(file.size/1024).toFixed(2)} KB\n上传时间: ${new Date().toLocaleString()}`;
+            saveResource(title, type, file.name, content);
+        };
+        reader.onerror = function(error) {
+            console.error('文件读取错误:', error);
+            showAlert('文件读取失败，请重试！', 'error');
+        };
+        reader.readAsArrayBuffer(file);
+        
+    } else if (fileExtension === 'pdf') {
+        // PDF文件处理
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const content = `[PDF文档: ${file.name}]\n\n注意：PDF文档已上传保存。\n\n文件大小: ${(file.size/1024).toFixed(2)} KB\n上传时间: ${new Date().toLocaleString()}\n\n建议：如需在网页中直接查看内容，请将文本复制到.txt文件中重新上传。`;
+            saveResource(title, type, file.name, content);
+        };
+        reader.onerror = function(error) {
+            console.error('文件读取错误:', error);
+            showAlert('文件读取失败，请重试！', 'error');
+        };
+        reader.readAsArrayBuffer(file);
+        
+    } else {
+        showAlert('不支持的文件格式！请上传 .txt、.doc、.docx 或 .pdf 文件', 'error');
+        return;
+    }
+}
+
+// 保存资源的通用函数
+function saveResource(title, type, fileName, content) {
+    try {
+        const resource = {
+            id: Date.now(),
+            title: title,
+            type: type,
+            fileName: fileName,
+            content: content,
+            uploadTime: new Date().toLocaleString()
+        };
+        
+        resourceData.push(resource);
+        localStorage.setItem('resourceData', JSON.stringify(resourceData));
+        
+        // 清空表单
+        document.getElementById('resourceTitle').value = '';
+        document.getElementById('resourceFile').value = '';
+        
+        updateResourcesDisplay();
+        showAlert('教育资源上传成功！', 'success');
+    } catch (error) {
+        console.error('资源上传错误:', error);
+        showAlert('上传失败，请重试！', 'error');
+    }
 }
 
 // 更新文物显示（管理后台）
@@ -125,9 +171,14 @@ function updateArtifactsDisplay() {
     
     container.innerHTML = artifactData.map(artifact => `
         <div class="list-item">
-            <div>
-                <div class="item-title">${artifact.name}</div>
-                <div class="item-meta">${artifact.level} | ${artifact.uploadTime}</div>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="${artifact.imageUrl}" alt="${artifact.name}" 
+                     style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid #ddd;"
+                     onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwIiBoZWlnaHQ9IjYwIiBmaWxsPSIjRjVGNUY1Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg0MFY0MEgyMFYyMFoiIGZpbGw9IiNEREREREQiLz4KPHRleHQgeD0iMzAiIHk9IjM1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiPuWbvueJhzwvdGV4dD4KPC9zdmc+'">
+                <div>
+                    <div class="item-title">${artifact.name}</div>
+                    <div class="item-meta">${artifact.level} | ${artifact.uploadTime}</div>
+                </div>
             </div>
             <div>
                 <button class="btn-view" onclick="viewArtifact(${artifact.id})">查看</button>
@@ -178,7 +229,12 @@ function showArtifactDetails(id) {
         <div style="text-align: center; margin-bottom: 2rem;">
             <span style="background: linear-gradient(45deg, var(--primary-red), var(--deep-red)); color: white; padding: 5px 15px; border-radius: 15px; font-size: 14px;">${artifact.level}</span>
         </div>
-        <img src="${artifact.imageUrl}" alt="${artifact.name}" style="width: 100%; max-width: 600px; height: auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); display: block; margin: 20px auto;">
+        <img src="${artifact.imageUrl}" alt="${artifact.name}" 
+             style="width: 100%; max-width: 600px; height: auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); display: block; margin: 20px auto;"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <div style="display: none; text-align: center; padding: 40px; background: #f5f5f5; border-radius: 10px; color: #666;">
+            图片加载失败，请检查图片链接
+        </div>
         <div style="background: var(--bg-light); padding: 20px; border-radius: 10px; margin-top: 20px;">
             <h3 style="color: var(--primary-red); margin-bottom: 1rem;">文物介绍</h3>
             <p style="line-height: 1.8; font-size: 16px;">${artifact.description || '这件珍贵文物见证了南梁革命根据地的光辉历史，承载着深厚的红色文化内涵。'}</p>
@@ -202,7 +258,7 @@ function viewResource(id) {
             <span style="background: linear-gradient(45deg, var(--primary-red), var(--deep-red)); color: white; padding: 5px 15px; border-radius: 15px; font-size: 14px;">${resource.type}</span>
         </div>
         <div style="background: var(--bg-light); padding: 20px; border-radius: 10px;">
-            <pre style="white-space: pre-wrap; font-family: inherit; line-height: 1.6;">${resource.content}</pre>
+            <pre style="white-space: pre-wrap; font-family: inherit; line-height: 1.6; word-wrap: break-word;">${resource.content}</pre>
         </div>
         <div style="text-align: center; margin-top: 2rem; color: var(--text-gray); font-size: 0.9rem;">
             文件：${resource.fileName} | 上传时间：${resource.uploadTime}
@@ -291,7 +347,6 @@ class AIAssistant {
 // 初始化AI助手
 const aiAssistant = new AIAssistant();
 
-// 重写发送AI消息函数，使用增强的AI助手
 function sendAIMessage() {
     const input = document.getElementById('aiChatInput');
     const message = input.value.trim();
@@ -316,28 +371,22 @@ function sendAIMessage() {
 class FormValidator {
     static validateArtifactForm() {
         const name = document.getElementById('artifactName').value.trim();
-        const file = document.getElementById('artifactImage').files[0];
+        const imageUrl = document.getElementById('artifactImageUrl').value.trim();
         
         if (!name) {
             showAlert('请输入文物名称');
             return false;
         }
         
-        if (!file) {
-            showAlert('请选择文物图片');
+        if (!imageUrl) {
+            showAlert('请输入文物图片URL');
             return false;
         }
         
-        // 检查文件类型
-        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-        if (!allowedTypes.includes(file.type)) {
-            showAlert('请选择有效的图片文件（JPG、PNG、GIF、WebP）');
-            return false;
-        }
-        
-        // 检查文件大小（最大20MB）
-        if (file.size > 20 * 1024 * 1024) {
-            showAlert('图片文件大小不能超过20MB');
+        try {
+            new URL(imageUrl);
+        } catch (error) {
+            showAlert('请输入有效的图片URL');
             return false;
         }
         
@@ -368,7 +417,6 @@ class FormValidator {
     }
 }
 
-// 增强的上传函数（加入验证）
 function uploadArtifactWithValidation() {
     if (!FormValidator.validateArtifactForm()) {
         return;
@@ -486,7 +534,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 文件拖放上传功能
+// 文件拖拽上传功能
 function initDragAndDrop() {
     const fileInputs = document.querySelectorAll('input[type="file"]');
     
@@ -537,10 +585,11 @@ function exportAllData() {
     link.click();
     URL.revokeObjectURL(url);
     
-    console.log('=== 导出的数据（可复制） ===');
+    console.log('=== 导出的数据（可复制）===');
     console.log(dataStr);
     
     showAlert('数据已导出！\n1. 已下载JSON文件\n2. 控制台也有输出（F12查看）', 'success');
 }
-// 页面加载完成后初始化拖放功能
+
+// 页面加载完成后初始化拖拽功能
 document.addEventListener('DOMContentLoaded', initDragAndDrop);
