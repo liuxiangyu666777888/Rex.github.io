@@ -1,38 +1,74 @@
-// 文物管理相关功能
+// 文物管理相关功能 - 修复版本
 function uploadArtifact() {
+    console.log('开始上传文物...'); // 添加调试日志
+    
     const name = document.getElementById('artifactName').value.trim();
     const level = document.getElementById('artifactLevel').value;
     const description = document.getElementById('artifactDescription').value.trim();
     const fileInput = document.getElementById('artifactImage');
     const file = fileInput.files[0];
     
+    console.log('表单数据:', { name, level, file }); // 调试日志
+    
     if (!name || !file) {
         showAlert('请填写文物名称并选择图片！');
         return;
     }
 
+    // 检查文件类型 - 支持更多格式
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+        showAlert('请选择有效的图片文件（JPG、PNG、GIF、WebP）');
+        return;
+    }
+    
+    // 检查文件大小 - 修改为20MB限制
+    const maxSize = 20 * 1024 * 1024; // 20MB
+    if (file.size > maxSize) {
+        showAlert(`图片文件大小不能超过20MB，当前文件大小：${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+        return;
+    }
+
+    // 显示上传进度
+    showAlert('正在上传文物，请稍候...', 'info');
+    
     const reader = new FileReader();
+    
     reader.onload = function(e) {
-        const artifact = {
-            id: Date.now(),
-            name: name,
-            level: level,
-            description: description,
-            imageData: e.target.result,
-            uploadTime: new Date().toLocaleString()
-        };
-        
-        artifactData.push(artifact);
-        localStorage.setItem('artifactData', JSON.stringify(artifactData));
-        
-        // 清空表单
-        document.getElementById('artifactName').value = '';
-        document.getElementById('artifactDescription').value = '';
-        document.getElementById('artifactImage').value = '';
-        
-        updateArtifactsDisplay();
-        updatePublicArtifacts();
-        showAlert('文物上传成功！', 'success');
+        try {
+            const artifact = {
+                id: Date.now(),
+                name: name,
+                level: level,
+                description: description,
+                imageData: e.target.result,
+                uploadTime: new Date().toLocaleString()
+            };
+            
+            console.log('创建文物对象:', artifact); // 调试日志
+            
+            artifactData.push(artifact);
+            localStorage.setItem('artifactData', JSON.stringify(artifactData));
+            
+            // 清空表单
+            document.getElementById('artifactName').value = '';
+            document.getElementById('artifactDescription').value = '';
+            document.getElementById('artifactImage').value = '';
+            
+            updateArtifactsDisplay();
+            updatePublicArtifacts();
+            showAlert('文物上传成功！', 'success');
+            
+            console.log('文物上传完成'); // 调试日志
+        } catch (error) {
+            console.error('上传过程中出错:', error);
+            showAlert('上传失败，请重试！', 'error');
+        }
+    };
+    
+    reader.onerror = function(error) {
+        console.error('文件读取错误:', error);
+        showAlert('文件读取失败，请重试！', 'error');
     };
     
     reader.readAsDataURL(file);
@@ -40,6 +76,8 @@ function uploadArtifact() {
 
 // 上传资源
 function uploadResource() {
+    console.log('开始上传资源...'); // 添加调试日志
+    
     const title = document.getElementById('resourceTitle').value.trim();
     const type = document.getElementById('resourceType').value;
     const fileInput = document.getElementById('resourceFile');
@@ -50,26 +88,46 @@ function uploadResource() {
         return;
     }
 
+    // 检查文件大小 - 20MB限制
+    const maxSize = 20 * 1024 * 1024; // 20MB
+    if (file.size > maxSize) {
+        showAlert(`文件大小不能超过20MB，当前文件大小：${(file.size / (1024 * 1024)).toFixed(2)}MB`);
+        return;
+    }
+
+    showAlert('正在上传资源，请稍候...', 'info');
+
     const reader = new FileReader();
+    
     reader.onload = function(e) {
-        const resource = {
-            id: Date.now(),
-            title: title,
-            type: type,
-            fileName: file.name,
-            content: e.target.result,
-            uploadTime: new Date().toLocaleString()
-        };
-        
-        resourceData.push(resource);
-        localStorage.setItem('resourceData', JSON.stringify(resourceData));
-        
-        // 清空表单
-        document.getElementById('resourceTitle').value = '';
-        document.getElementById('resourceFile').value = '';
-        
-        updateResourcesDisplay();
-        showAlert('教育资源上传成功！', 'success');
+        try {
+            const resource = {
+                id: Date.now(),
+                title: title,
+                type: type,
+                fileName: file.name,
+                content: e.target.result,
+                uploadTime: new Date().toLocaleString()
+            };
+            
+            resourceData.push(resource);
+            localStorage.setItem('resourceData', JSON.stringify(resourceData));
+            
+            // 清空表单
+            document.getElementById('resourceTitle').value = '';
+            document.getElementById('resourceFile').value = '';
+            
+            updateResourcesDisplay();
+            showAlert('教育资源上传成功！', 'success');
+        } catch (error) {
+            console.error('资源上传错误:', error);
+            showAlert('上传失败，请重试！', 'error');
+        }
+    };
+    
+    reader.onerror = function(error) {
+        console.error('文件读取错误:', error);
+        showAlert('文件读取失败，请重试！', 'error');
     };
     
     reader.readAsText(file, 'UTF-8');
@@ -276,7 +334,7 @@ function sendAIMessage() {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-// 表单验证组件
+// 表单验证组件（保持不变，但更新文件大小限制）
 class FormValidator {
     static validateArtifactForm() {
         const name = document.getElementById('artifactName').value.trim();
@@ -293,15 +351,15 @@ class FormValidator {
         }
         
         // 检查文件类型
-        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
         if (!allowedTypes.includes(file.type)) {
-            showAlert('请选择有效的图片文件（JPG、PNG、GIF）');
+            showAlert('请选择有效的图片文件（JPG、PNG、GIF、WebP）');
             return false;
         }
         
-        // 检查文件大小（最大5MB）
-        if (file.size > 5 * 1024 * 1024) {
-            showAlert('图片文件大小不能超过5MB');
+        // 检查文件大小（最大20MB）
+        if (file.size > 20 * 1024 * 1024) {
+            showAlert('图片文件大小不能超过20MB');
             return false;
         }
         
@@ -319,6 +377,12 @@ class FormValidator {
         
         if (!file) {
             showAlert('请选择资源文件');
+            return false;
+        }
+        
+        // 检查文件大小（最大20MB）
+        if (file.size > 20 * 1024 * 1024) {
+            showAlert('文件大小不能超过20MB');
             return false;
         }
         
@@ -408,7 +472,9 @@ class SearchSuggestion {
             item.addEventListener('click', () => {
                 inputElement.value = suggestion;
                 suggestionsDiv.remove();
-                filterArtifacts();
+                if (typeof filterArtifacts === 'function') {
+                    filterArtifacts();
+                }
             });
             
             suggestionsDiv.appendChild(item);
@@ -441,3 +507,40 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// 文件拖放上传功能
+function initDragAndDrop() {
+    const fileInputs = document.querySelectorAll('input[type="file"]');
+    
+    fileInputs.forEach(input => {
+        const container = input.parentElement;
+        
+        container.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            container.style.background = '#f0f8ff';
+            container.style.border = '2px dashed #007bff';
+        });
+        
+        container.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            container.style.background = '';
+            container.style.border = '';
+        });
+        
+        container.addEventListener('drop', (e) => {
+            e.preventDefault();
+            container.style.background = '';
+            container.style.border = '';
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                input.files = files;
+                // 触发change事件
+                input.dispatchEvent(new Event('change'));
+            }
+        });
+    });
+}
+
+// 页面加载完成后初始化拖放功能
+document.addEventListener('DOMContentLoaded', initDragAndDrop);
