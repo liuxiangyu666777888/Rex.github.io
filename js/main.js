@@ -168,7 +168,7 @@ function filterArtifacts() {
     updatePublicArtifacts();
 }
 
-// 更新公开文物显示
+// 更新公开文物显示 - 修复版本，确保图片直接显示
 function updatePublicArtifacts() {
     const container = document.getElementById('artifactsDisplay');
     const dataToShow = filteredData.length > 0 ? filteredData : artifactData;
@@ -197,10 +197,20 @@ function updatePublicArtifacts() {
         <div class="artifacts-grid">
             ${pageItems.map(artifact => `
                 <div class="artifact-card" onclick="showArtifactDetails(${artifact.id})">
-                    <img src="${artifact.imageData}" alt="${artifact.name}">
-                    <div class="info">
-                        <div class="name">${artifact.name}</div>
-                        <div class="level">${artifact.level}</div>
+                    <div class="artifact-image-container">
+                        <img src="${artifact.imageUrl}" 
+                             alt="${artifact.name}"
+                             style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px 10px 0 0;"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                             onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+                        <div class="image-placeholder" style="display: none; width: 100%; height: 200px; background: #f5f5f5; border-radius: 10px 10px 0 0; justify-content: center; align-items: center; color: #999; font-size: 14px;">
+                            图片加载失败
+                        </div>
+                    </div>
+                    <div class="info" style="padding: 15px;">
+                        <div class="name" style="font-weight: 600; color: #333; margin-bottom: 8px; font-size: 16px;">${artifact.name}</div>
+                        <div class="level" style="background: linear-gradient(45deg, #c41e3a, #8b1538); color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; display: inline-block;">${artifact.level}</div>
+                        ${artifact.description ? `<div class="description" style="margin-top: 10px; color: #666; font-size: 14px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${artifact.description}</div>` : ''}
                     </div>
                 </div>
             `).join('')}
@@ -208,6 +218,41 @@ function updatePublicArtifacts() {
     `;
 
     updatePagination(dataToShow.length);
+}
+
+// 搜索和筛选 - 确保兼容性
+function filterArtifacts() {
+    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    const levelFilter = document.getElementById('levelFilter').value;
+
+    filteredData = artifactData.filter(artifact => {
+        const matchesSearch = artifact.name.toLowerCase().includes(searchTerm) || 
+                            (artifact.description || '').toLowerCase().includes(searchTerm);
+        const matchesLevel = !levelFilter || artifact.level === levelFilter;
+        return matchesSearch && matchesLevel;
+    });
+
+    currentPage = 1;
+    updatePublicArtifacts();
+}
+
+// 显示资源列表 - 改进版本
+function showResourcesList() {
+    const modal = document.getElementById('artifactModal');
+    const content = resourceData.map(resource => `
+        <div class="list-item" onclick="viewResource(${resource.id})" style="cursor: pointer; transition: background 0.2s; padding: 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid #eee;">
+            <div>
+                <div class="item-title" style="font-weight: 600; color: #333; margin-bottom: 5px;">${resource.title}</div>
+                <div class="item-meta" style="color: #666; font-size: 14px;">${resource.type} | ${resource.uploadTime}</div>
+            </div>
+        </div>
+    `).join('');
+    
+    document.getElementById('artifactDetails').innerHTML = `
+        <h2 style="color: var(--primary-red); margin-bottom: 2rem; text-align: center;">教育资源库</h2>
+        <div class="content-list" style="max-height: 400px; overflow-y: auto;">${content || '<div style="text-align: center; color: #666; padding: 40px;">暂无教育资源</div>'}</div>
+    `;
+    modal.classList.add('show');
 }
 
 // 更新分页
