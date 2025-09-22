@@ -1,6 +1,4 @@
-// js/main.js - 主JavaScript逻辑文件
 
-// 全局变量 - 使用localStorage持久化
 let artifactData = JSON.parse(localStorage.getItem('artifactData')) || [];
 let resourceData = JSON.parse(localStorage.getItem('resourceData')) || [];
 let currentPage = 1;
